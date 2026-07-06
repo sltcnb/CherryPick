@@ -1,4 +1,4 @@
-# Triager
+# triager
 
 A comprehensive, cross-OS forensic acquisition agent. It walks a host (live), a
 mounted volume, a pytsk3 disk image (E01/dd/vhd), or a raw device (BitLocker) and
