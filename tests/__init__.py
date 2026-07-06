@@ -1,3 +1,3 @@
 """
-Test package for ForensicHarvester.
+Test package for Triager.
 """

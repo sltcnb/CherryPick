@@ -1,5 +1,5 @@
 """
-Office collector for ForensicHarvester.
+Office collector for Triager.
 
 Collects office artifacts.
 """

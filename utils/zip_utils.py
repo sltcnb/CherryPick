@@ -1,5 +1,5 @@
 """
-ZIP utilities for ForensicHarvester.
+ZIP utilities for Triager.
 
 This module provides ZIP file creation with support for large files,
 password protection, and ZIP64 format.
@@ -235,7 +235,7 @@ def extract_zip(
 def generate_zip_filename(
     hostname: str,
     timestamp: datetime | None = None,
-    prefix: str = "ForensicHarvester",
+    prefix: str = "Triager",
 ) -> str:
     """
     Generate a deterministic ZIP filename.

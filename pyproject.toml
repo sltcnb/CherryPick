@@ -1,10 +1,10 @@
 [project]
-name = "forensic-harvester"
+name = "triager"
 version = "1.2.0"
-description = "ForensicHarvester — cross-OS forensic acquisition agent (live / image / dead-box) producing a signed content-addressed artifact bundle"
+description = "Triager — cross-OS forensic acquisition agent (live / image / dead-box) producing a signed content-addressed artifact bundle"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "ForensicHarvester" }]
+authors = [{ name = "Triager" }]
 
 # Core runtime. Network (grpcio), crypto (cryptography), S3 (boto3), YARA
 # (yara-python) and pytsk3 are imported lazily so a lean build still runs; they
@@ -24,13 +24,13 @@ full = ["pytsk3", "pyzipper", "yara-python", "grpcio", "cryptography", "boto3"]
 dev = ["pytest", "pytest-cov"]
 
 [project.scripts]
-forensic-harvester = "forensic_harvester:main"
+triager = "triager:main"
 
 [build-system]
 requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-py-modules = ["forensic_harvester", "crypto", "agent_client", "collector_server",
+py-modules = ["triager", "crypto", "agent_client", "collector_server",
               "secure_upload", "fo_uploader", "remote_upload"]
 packages = ["collectors", "utils", "sources"]

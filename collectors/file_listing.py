@@ -1,5 +1,5 @@
 """
-FileListing collector for ForensicHarvester.
+FileListing collector for Triager.
 
 Produces a full recursive file listing with MACB timestamps and size, as a CSV
 under ``file_listing/file_listing.csv``. Works over any source (live/mounted via

@@ -1,5 +1,5 @@
 """
-Manifest utilities for ForensicHarvester.
+Manifest utilities for Triager.
 
 This module handles the collection manifest that tracks all collected files,
 their hashes, metadata, and collection status.
@@ -197,7 +197,7 @@ class CollectionManifest:
         
         manifest_data = {
             'metadata': {
-                'tool': 'ForensicHarvester',
+                'tool': 'Triager',
                 'version': '1.0.0',
                 'level': self.level,
                 'start_time': self.start_time.isoformat(),
@@ -265,7 +265,7 @@ class CollectionManifest:
         os.makedirs(os.path.dirname(log_path), exist_ok=True)
         
         with open(log_path, 'w', encoding='utf-8') as f:
-            f.write(f"ForensicHarvester Error Log\n")
+            f.write(f"Triager Error Log\n")
             f.write(f"Generated: {datetime.now().isoformat()}\n")
             f.write(f"Level: {self.level}\n\n")
             f.write(f"Total Errors: {len(self.errors)}\n")

@@ -1,5 +1,5 @@
 """
-Hashing collector for ForensicHarvester.
+Hashing collector for Triager.
 
 Produces a hash inventory (MD5 + SHA-256 + size) of files under the source,
 rather than copying them. Output: ``hashing/hashes.csv``. Bounded by level:

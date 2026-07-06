@@ -1,5 +1,5 @@
 """
-Credentials collector for ForensicHarvester.
+Credentials collector for Triager.
 
 Collects credentials artifacts.
 """

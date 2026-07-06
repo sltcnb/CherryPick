@@ -1,5 +1,5 @@
 """
-WSL collector for ForensicHarvester.
+WSL collector for Triager.
 
 Collects wsl artifacts.
 """

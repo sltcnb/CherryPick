@@ -1,5 +1,5 @@
 """
-Contract loading + validation for ForensicHarvester.
+Contract loading + validation for Triager.
 
 FH is self-contained: it vendors its own copy of the Citadel contract files
 under ``contracts/`` (``bundle_manifest.schema.json``, ``forensic_event.schema.json``,

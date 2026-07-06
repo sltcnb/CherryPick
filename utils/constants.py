@@ -1,5 +1,5 @@
 """
-Constants for ForensicHarvester.
+Constants for Triager.
 
 This module defines all path patterns, category mappings, and configuration constants
 used throughout the application.

@@ -1,5 +1,5 @@
 """
-Execution collector for ForensicHarvester.
+Execution collector for Triager.
 
 Collects execution artifacts.
 """

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ForensicHarvester - Comprehensive Forensic Triage Tool
+Triager - Comprehensive Forensic Triage Tool
 
 A Python-based forensic triage tool that operates in two modes:
 1. Dead-box mode against a mounted dd image or raw image file
@@ -55,8 +55,8 @@ class ImageSourceRoot:
         return f"Image:{self.image.image_path}"
 
 
-class ForensicHarvester:
-    """Main forensic harvester class."""
+class Triager:
+    """Main Triager class."""
     
     def __init__(self, config: Dict):
         """
@@ -130,7 +130,7 @@ class ForensicHarvester:
         else:
             hostname = os.environ.get('COMPUTERNAME', 'unknown')
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        self.base_output_dir = f"ForensicHarvester_{hostname}_{timestamp}"
+        self.base_output_dir = f"Triager_{hostname}_{timestamp}"
         
         output_base = config.get('output_dir', './output')
         self.output_root = os.path.join(output_base, self.base_output_dir)
@@ -218,7 +218,7 @@ class ForensicHarvester:
             True if successful.
         """
         self.logger.info("=" * 80)
-        self.logger.info("ForensicHarvester Starting")
+        self.logger.info("Triager Starting")
         self.logger.info(f"Mode: {self.mode}")
         self.logger.info(f"Level: {self.level}")
         self.logger.info(f"Categories: {len(self.categories)}")
@@ -442,26 +442,26 @@ def load_config(config_path: str) -> Dict:
 def parse_args() -> argparse.Namespace:
     """Parse command line arguments."""
     parser = argparse.ArgumentParser(
-        description='ForensicHarvester - Comprehensive Forensic Triage Tool',
+        description='Triager - Comprehensive Forensic Triage Tool',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   # Live triage - small level
-  python forensic_harvester.py --mode live --level small
+  python triager.py --mode live --level small
   
   # Dead-box from raw dd image
-  python forensic_harvester.py --mode image --image-path disk.dd --level complete
+  python triager.py --mode image --image-path disk.dd --level complete
   
   # Dead-box from mounted image
-  python forensic_harvester.py --mode image --image-path E:\\ --level complete
+  python triager.py --mode image --image-path E:\\ --level complete
   
   # Exhaustive with YARA
-  python forensic_harvester.py --mode image --image-path disk.dd --yara-rules ./rules/
+  python triager.py --mode image --image-path disk.dd --yara-rules ./rules/
         """
     )
     
     parser.add_argument('--version', action='version',
-                        version='ForensicHarvester 1.2.0')
+                        version='Triager 1.2.0')
 
     # Mode and image path
     parser.add_argument(
@@ -681,7 +681,7 @@ def main():
         config['skip_problematic'] = True
 
     # Create and run harvester
-    harvester = ForensicHarvester(config)
+    harvester = Triager(config)
 
     try:
         harvester.run()

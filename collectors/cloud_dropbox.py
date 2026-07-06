@@ -1,5 +1,5 @@
 """
-CloudDropbox collector for ForensicHarvester.
+CloudDropbox collector for Triager.
 
 Collects cloud/dropbox artifacts.
 """

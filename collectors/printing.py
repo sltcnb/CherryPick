@@ -1,5 +1,5 @@
 """
-Printing collector for ForensicHarvester.
+Printing collector for Triager.
 
 Collects printing artifacts.
 """

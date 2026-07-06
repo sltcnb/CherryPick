@@ -1,5 +1,5 @@
 """
-Hashing utilities for ForensicHarvester.
+Hashing utilities for Triager.
 
 This module provides file hashing functionality with support for multiple
 algorithms and streaming for large files.

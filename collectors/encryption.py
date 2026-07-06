@@ -1,5 +1,5 @@
 """
-Encryption collector for ForensicHarvester.
+Encryption collector for Triager.
 
 Collects encryption artifacts.
 """

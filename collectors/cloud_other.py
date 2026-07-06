@@ -1,5 +1,5 @@
 """
-CloudOther collector for ForensicHarvester.
+CloudOther collector for Triager.
 
 Collects cloud/other artifacts.
 """

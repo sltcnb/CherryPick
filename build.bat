@@ -1,10 +1,10 @@
 @echo off
-REM Build forensic-harvester.exe (single file, UAC-admin) via PyInstaller.
+REM Build triager.exe (single file, UAC-admin) via PyInstaller.
 REM Bundles capabilities.yaml, vendored contracts\, and generated gRPC stubs.
 setlocal
 cd /d "%~dp0"
 
-set BINARY_NAME=forensic-harvester
+set BINARY_NAME=triager
 set PYTHON=python
 
 echo [*] Installing build dependencies...
@@ -19,7 +19,7 @@ echo [*] Building %BINARY_NAME%.exe ...
     --add-data "capabilities.yaml;." ^
     --add-data "contracts;contracts" ^
     --add-data "grpc_stubs;grpc_stubs" ^
-    forensic_harvester.py
+    triager.py
 
 echo [+] Done: dist\%BINARY_NAME%.exe
 endlocal

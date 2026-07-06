@@ -1,5 +1,5 @@
 """
-Utils package for ForensicHarvester.
+Utils package for Triager.
 
 This package contains utility modules for file operations, hashing, 
 registry access, NTFS operations, and other common functionality.

@@ -1,5 +1,5 @@
 """
-Signal collector for ForensicHarvester.
+Signal collector for Triager.
 
 Collects messaging/signal artifacts.
 """

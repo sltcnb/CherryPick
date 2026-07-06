@@ -1,5 +1,5 @@
 """
-NTFS utilities for ForensicHarvester.
+NTFS utilities for Triager.
 
 This module provides NTFS-specific functionality for accessing metadata files,
 enumerating ADS, and parsing NTFS structures.

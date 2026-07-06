@@ -1,5 +1,5 @@
 """
-File operations utilities for ForensicHarvester.
+File operations utilities for Triager.
 
 This module provides robust file copying, long path handling, timestamp preservation,
 and error-resilient file operations.

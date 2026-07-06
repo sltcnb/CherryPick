@@ -1,5 +1,5 @@
 """
-CloudGoogleDrive collector for ForensicHarvester.
+CloudGoogleDrive collector for Triager.
 
 Collects cloud/google_drive artifacts.
 """

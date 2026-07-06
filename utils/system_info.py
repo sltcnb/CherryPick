@@ -1,5 +1,5 @@
 """
-System information utilities for ForensicHarvester.
+System information utilities for Triager.
 
 This module collects system information about the target machine.
 """

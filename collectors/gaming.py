@@ -1,5 +1,5 @@
 """
-Gaming collector for ForensicHarvester.
+Gaming collector for Triager.
 
 Collects gaming artifacts.
 """

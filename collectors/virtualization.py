@@ -1,5 +1,5 @@
 """
-Virtualization collector for ForensicHarvester.
+Virtualization collector for Triager.
 
 Collects virtualization artifacts.
 """

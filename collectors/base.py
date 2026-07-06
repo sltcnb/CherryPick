@@ -1,5 +1,5 @@
 """
-Base collector module for ForensicHarvester.
+Base collector module for Triager.
 
 This module defines the base class and interfaces for all artifact collectors.
 """

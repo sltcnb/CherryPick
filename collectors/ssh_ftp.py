@@ -1,5 +1,5 @@
 """
-SSHFTP collector for ForensicHarvester.
+SSHFTP collector for Triager.
 
 Collects ssh_ftp artifacts.
 """

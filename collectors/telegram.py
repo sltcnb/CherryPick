@@ -1,5 +1,5 @@
 """
-Telegram collector for ForensicHarvester.
+Telegram collector for Triager.
 
 Collects messaging/telegram artifacts.
 """

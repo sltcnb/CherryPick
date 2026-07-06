@@ -1,5 +1,5 @@
 """
-Persistence collector for ForensicHarvester.
+Persistence collector for Triager.
 
 Collects persistence artifacts.
 """

@@ -1,8 +1,8 @@
 """
-Collector registry for ForensicHarvester.
+Collector registry for Triager.
 
 Replaces the old three-place static dispatch (``COLLECTOR_CLASSES`` in
-``forensic_harvester.py``, ``CATEGORY_COLLECTOR_MAP`` in ``utils/constants.py``
+``triager.py``, ``CATEGORY_COLLECTOR_MAP`` in ``utils/constants.py``
 and the re-exports in ``collectors/__init__.py``) with a single source of truth:
 auto-discovery of every :class:`~collectors.base.BaseCollector` subclass in the
 ``collectors`` package, keyed by its declared ``category``.

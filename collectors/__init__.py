@@ -1,5 +1,5 @@
 """
-Collectors package for ForensicHarvester.
+Collectors package for Triager.
 
 This package contains all artifact collectors organized by category.
 """

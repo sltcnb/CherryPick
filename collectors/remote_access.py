@@ -1,5 +1,5 @@
 """
-RemoteAccess collector for ForensicHarvester.
+RemoteAccess collector for Triager.
 
 Collects remote_access artifacts.
 """

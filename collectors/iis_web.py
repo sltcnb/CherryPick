@@ -1,5 +1,5 @@
 """
-IISWeb collector for ForensicHarvester.
+IISWeb collector for Triager.
 
 Collects iis_web artifacts.
 """

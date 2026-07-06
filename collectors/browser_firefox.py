@@ -1,5 +1,5 @@
 """
-BrowserFirefox collector for ForensicHarvester.
+BrowserFirefox collector for Triager.
 
 Collects browser/firefox artifacts.
 """

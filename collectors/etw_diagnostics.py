@@ -1,5 +1,5 @@
 """
-ETWDiagnostics collector for ForensicHarvester.
+ETWDiagnostics collector for Triager.
 
 Collects etw_diagnostics artifacts.
 """

@@ -1,5 +1,5 @@
 """
-PasswordManagers collector for ForensicHarvester.
+PasswordManagers collector for Triager.
 
 Collects password_managers artifacts.
 """

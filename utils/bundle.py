@@ -98,7 +98,7 @@ class BundleWriter:
             "timestamp_desc": "collection",
             "os": self._os_hint(),
             "source_path": art.name,
-            "parser": "forensic-harvester",
+            "parser": "triager",
             "raw": art.to_manifest(),
         }
 

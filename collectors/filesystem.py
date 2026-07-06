@@ -1,5 +1,5 @@
 """
-Filesystem collector for ForensicHarvester.
+Filesystem collector for Triager.
 
 Collects filesystem artifacts.
 """

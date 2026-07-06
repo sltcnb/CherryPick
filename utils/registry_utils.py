@@ -1,5 +1,5 @@
 """
-Registry utilities for ForensicHarvester.
+Registry utilities for Triager.
 
 This module provides registry access and parsing functionality for both
 live systems and offline hives.

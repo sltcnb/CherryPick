@@ -1,5 +1,5 @@
 """
-Unified source abstraction for ForensicHarvester.
+Unified source abstraction for Triager.
 
 A :class:`Source` presents the same primitive filesystem operations regardless of
 whether artifacts come from a live host, a mounted volume, a pytsk3 disk image

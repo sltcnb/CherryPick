@@ -1,5 +1,5 @@
 """
-Privilege utilities for ForensicHarvester.
+Privilege utilities for Triager.
 
 This module provides Windows privilege management for acquiring
 SeBackupPrivilege and SeSecurityPrivilege needed for forensic collection.

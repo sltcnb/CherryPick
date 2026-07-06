@@ -1,5 +1,5 @@
 """
-DatabaseClients collector for ForensicHarvester.
+DatabaseClients collector for Triager.
 
 Collects database_clients artifacts.
 """

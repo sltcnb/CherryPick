@@ -1,5 +1,5 @@
 """
-WERCrashes collector for ForensicHarvester.
+WERCrashes collector for Triager.
 
 Collects wer_crashes artifacts.
 """

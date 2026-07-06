@@ -1,5 +1,5 @@
 """
-BootUEFI collector for ForensicHarvester.
+BootUEFI collector for Triager.
 
 Collects boot_uefi artifacts.
 """

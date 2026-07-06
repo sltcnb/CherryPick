@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Build forensic-harvester as a self-contained Linux ELF via PyInstaller.
+# Build triager as a self-contained Linux ELF via PyInstaller.
 # Bundles capabilities.yaml, the vendored contracts/, and generated gRPC stubs.
 #
 #   chmod +x build.sh && ./build.sh
-# Output: dist/forensic-harvester
+# Output: dist/triager
 set -euo pipefail
 cd "$(dirname "$0")"
 
-BINARY_NAME="forensic-harvester"
+BINARY_NAME="triager"
 PYTHON="${PYTHON:-python3}"
 
 echo "[*] Installing build dependencies…"
@@ -25,7 +25,7 @@ echo "[*] Building ${BINARY_NAME} ELF…"
     --add-data "capabilities.yaml:." \
     --add-data "contracts:contracts" \
     $([ -d grpc_stubs ] && echo "--add-data grpc_stubs:grpc_stubs") \
-    forensic_harvester.py
+    triager.py
 
 echo ""
 echo "[+] Done:  dist/${BINARY_NAME}"

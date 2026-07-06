@@ -1,5 +1,5 @@
 """
-BrowserEdge collector for ForensicHarvester.
+BrowserEdge collector for Triager.
 
 Collects browser/edge artifacts.
 """

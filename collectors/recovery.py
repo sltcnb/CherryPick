@@ -1,5 +1,5 @@
 """
-Recovery collector for ForensicHarvester.
+Recovery collector for Triager.
 
 Collects recovery artifacts.
 """

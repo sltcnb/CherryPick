@@ -1,5 +1,5 @@
 """
-WhatsApp collector for ForensicHarvester.
+WhatsApp collector for Triager.
 
 Collects messaging/whatsapp artifacts.
 """

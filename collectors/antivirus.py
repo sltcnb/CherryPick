@@ -1,5 +1,5 @@
 """
-Antivirus collector for ForensicHarvester.
+Antivirus collector for Triager.
 
 Collects antivirus artifacts.
 """

@@ -1,5 +1,5 @@
 """
-Registry collector for ForensicHarvester.
+Registry collector for Triager.
 
 Collects registry artifacts.
 """

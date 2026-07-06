@@ -1,5 +1,5 @@
 """
-Teams collector for ForensicHarvester.
+Teams collector for Triager.
 
 Collects messaging/teams artifacts.
 """

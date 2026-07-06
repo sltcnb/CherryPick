@@ -1,5 +1,5 @@
 """
-Memory collector for ForensicHarvester.
+Memory collector for Triager.
 
 Collects memory artifacts.
 """

@@ -1,9 +1,9 @@
-# ForensicHarvester
+# Triager
 
 A comprehensive, cross-OS forensic acquisition agent. It walks a host (live), a
 mounted volume, a pytsk3 disk image (E01/dd/vhd), or a raw device (BitLocker) and
 gathers artifacts into a **signed, content-addressed bundle** — the same contract
-Citadel's Talon produces — while keeping ForensicHarvester's strengths (pytsk3
+Citadel's Talon produces — while keeping Triager's strengths (pytsk3
 imaging, YARA, multithreading) and one-file-per-collector modularity.
 
 ## What's new (v1.2.0 — Talon parity)
@@ -59,7 +59,7 @@ imaging, YARA, multithreading) and one-file-per-collector modularity.
 
 ```bash
 # Clone or download the tool
-cd forensic_harvester
+cd triager
 
 # Install dependencies
 pip install -r requirements.txt
@@ -87,28 +87,28 @@ pip install yara-python regipy pytsk3 pyewf pycryptodome pyzipper pywin32
 
 ```bash
 # Live triage - small level (fast)
-python forensic_harvester.py --mode live --level small
+python triager.py --mode live --level small
 
 # Live triage - complete level
-python forensic_harvester.py --mode live --level complete
+python triager.py --mode live --level complete
 
 # Dead-box against mounted image
-python forensic_harvester.py --mode image --image-path E:\ --level complete
+python triager.py --mode image --image-path E:\ --level complete
 
 # Collect specific categories
-python forensic_harvester.py --mode live --level complete --categories registry,eventlogs,browser_all
+python triager.py --mode live --level complete --categories registry,eventlogs,browser_all
 
 # With password-protected ZIP
-python forensic_harvester.py --mode live --level complete --zip-password "S3cur3P@ss!"
+python triager.py --mode live --level complete --zip-password "S3cur3P@ss!"
 
 # Exhaustive mode with YARA scanning
-python forensic_harvester.py --mode image --image-path E:\ --level exhaustive --yara-rules ./rules/
+python triager.py --mode image --image-path E:\ --level exhaustive --yara-rules ./rules/
 ```
 
 ### Command Line Options
 
 ```
-usage: forensic_harvester.py [-h] (--mode {live,image} | --image-path IMAGE_PATH)
+usage: triager.py [-h] (--mode {live,image} | --image-path IMAGE_PATH)
                              [--level {small,complete,exhaustive}]
                              [--categories CATEGORIES]
                              [--include-users INCLUDE_USERS]
@@ -121,7 +121,7 @@ usage: forensic_harvester.py [-h] (--mode {live,image} | --image-path IMAGE_PATH
                              [--collect-swapfile] [--config CONFIG]
                              [--quiet] [--max-file-size MAX_FILE_SIZE]
 
-ForensicHarvester - Comprehensive Forensic Triage Tool
+Triager - Comprehensive Forensic Triage Tool
 
 options:
   -h, --help            show this help message and exit
@@ -173,7 +173,7 @@ CLI flags override configuration file values.
 ## Output Structure
 
 ```
-ForensicHarvester_HOSTNAME_YYYYMMDD_HHMMSS/
+Triager_HOSTNAME_YYYYMMDD_HHMMSS/
 ├── metadata/
 │   ├── collection_manifest.json
 │   ├── collection_log.txt

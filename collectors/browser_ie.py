@@ -1,5 +1,5 @@
 """
-BrowserIE collector for ForensicHarvester.
+BrowserIE collector for Triager.
 
 Collects browser/ie artifacts.
 """

@@ -1,5 +1,5 @@
 """
-YARA scanner collector for ForensicHarvester.
+YARA scanner collector for Triager.
 
 Scans source files against YARA rules (``config['yara_rules']`` — a .yar file or a
 directory of them) and writes matches to ``yara/yara_matches.jsonl``. Requires

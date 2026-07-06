@@ -1,5 +1,5 @@
 """
-BrowserChrome collector for ForensicHarvester.
+BrowserChrome collector for Triager.
 
 Collects browser/chrome artifacts.
 """

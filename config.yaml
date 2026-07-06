@@ -1,4 +1,4 @@
-# ForensicHarvester Configuration File
+# Triager Configuration File
 # CLI flags override these values
 
 # Mode: 'live' or 'image'

@@ -1,5 +1,5 @@
 """
-Discord collector for ForensicHarvester.
+Discord collector for Triager.
 
 Collects messaging/discord artifacts.
 """

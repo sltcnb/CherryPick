@@ -1,4 +1,4 @@
-tool: forensic-harvester
+tool: triager
 kind: collector
 stage: Collect
 icon: harvester
@@ -9,7 +9,7 @@ surfaces:
   - route: /collector
 version: 1.2.0
 description: >-
-  ForensicHarvester is the acquisition stage. It owns the per-OS artifact catalog
+  Triager is the acquisition stage. It owns the per-OS artifact catalog
   below; a collection UI can be rendered directly from this file. Each option
   `value` is exactly the category key consumed by `--collect` and dispatched to a
   registered collector of the same key (see collectors/collector_registry.py).

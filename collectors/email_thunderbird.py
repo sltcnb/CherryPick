@@ -1,5 +1,5 @@
 """
-EmailThunderbird collector for ForensicHarvester.
+EmailThunderbird collector for Triager.
 
 Collects email/thunderbird artifacts.
 """

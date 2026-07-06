@@ -1,5 +1,5 @@
 """
-Network collector for ForensicHarvester.
+Network collector for Triager.
 
 Collects network artifacts.
 """

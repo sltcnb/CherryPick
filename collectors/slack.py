@@ -1,5 +1,5 @@
 """
-Slack collector for ForensicHarvester.
+Slack collector for Triager.
 
 Collects messaging/slack artifacts.
 """

@@ -1,5 +1,5 @@
 """
-Logs collector for ForensicHarvester.
+Logs collector for Triager.
 
 Collects logs artifacts.
 """

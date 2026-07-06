@@ -1,5 +1,5 @@
 """
-WindowsApps collector for ForensicHarvester.
+WindowsApps collector for Triager.
 
 Collects windows_apps artifacts.
 """

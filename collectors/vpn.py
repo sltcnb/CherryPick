@@ -1,5 +1,5 @@
 """
-VPNI collector for ForensicHarvester.
+VPNI collector for Triager.
 
 Collects vpn artifacts.
 """

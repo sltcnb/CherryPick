@@ -1,5 +1,5 @@
 """
-RDP collector for ForensicHarvester.
+RDP collector for Triager.
 
 Collects rdp artifacts.
 """

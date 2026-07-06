@@ -1,8 +1,8 @@
-# ForensicHarvester — acquisition agent
-name: ForensicHarvester
+# Triager — acquisition agent
+name: Triager
 kind: collector
 version: "1.2.0"
-repository: forensic-harvester
+repository: triager
 status: built
 consumes:
   content_types: []        # reads live hosts / disks / images, not bus input
@@ -15,4 +15,4 @@ produces:
 dependencies:
   - sluice                  # hands bundles to Sluice (gRPC / upload token)
 health:
-  command: "forensic-harvester --version"
+  command: "triager --version"

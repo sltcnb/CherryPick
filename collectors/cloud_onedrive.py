@@ -1,5 +1,5 @@
 """
-CloudOneDrive collector for ForensicHarvester.
+CloudOneDrive collector for Triager.
 
 Collects cloud/onedrive artifacts.
 """

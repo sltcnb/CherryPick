@@ -1,5 +1,5 @@
 """
-EventLogs collector for ForensicHarvester.
+EventLogs collector for Triager.
 
 Collects eventlogs artifacts.
 """

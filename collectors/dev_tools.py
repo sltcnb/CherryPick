@@ -1,5 +1,5 @@
 """
-DevTools collector for ForensicHarvester.
+DevTools collector for Triager.
 
 Collects dev_tools artifacts.
 """

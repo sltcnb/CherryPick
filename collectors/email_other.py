@@ -1,5 +1,5 @@
 """
-EmailOther collector for ForensicHarvester.
+EmailOther collector for Triager.
 
 Collects email/other artifacts.
 """

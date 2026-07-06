@@ -1,5 +1,5 @@
 """
-USBDevices collector for ForensicHarvester.
+USBDevices collector for Triager.
 
 Collects usb_devices artifacts.
 """

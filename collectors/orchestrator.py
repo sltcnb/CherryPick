@@ -13,7 +13,7 @@ session rather than one legacy object):
                   the session-level manifest without unifying the two dataclasses)
 
 This replaces the ad-hoc ``COLLECTOR_CLASSES`` dispatch + ``_run_collectors`` loop
-that used to live in ``forensic_harvester.py``.
+that used to live in ``triager.py``.
 """
 
 from __future__ import annotations

@@ -1,5 +1,5 @@
 """
-ActiveDirectory collector for ForensicHarvester.
+ActiveDirectory collector for Triager.
 
 Collects active_directory artifacts.
 """

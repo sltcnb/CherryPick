@@ -1,5 +1,5 @@
 """
-Path utilities for ForensicHarvester.
+Path utilities for Triager.
 
 This module provides path expansion, normalization, and cross-platform
 path handling utilities.
