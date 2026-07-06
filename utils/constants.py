@@ -11,60 +11,9 @@ from pathlib import Path
 # Collection level definitions
 COLLECTION_LEVELS = ['small', 'complete', 'exhaustive']
 
-# Category to collector mapping
-CATEGORY_COLLECTOR_MAP = {
-    'registry': 'RegistryCollector',
-    'eventlogs': 'EventLogsCollector',
-    'filesystem': 'FilesystemCollector',
-    'execution': 'ExecutionCollector',
-    'persistence': 'PersistenceCollector',
-    'network': 'NetworkCollector',
-    'usb_devices': 'USBDevicesCollector',
-    'browser_chrome': 'BrowserChromeCollector',
-    'browser_firefox': 'BrowserFirefoxCollector',
-    'browser_edge': 'BrowserEdgeCollector',
-    'browser_ie': 'BrowserIECollector',
-    'email_outlook': 'EmailOutlookCollector',
-    'email_thunderbird': 'EmailThunderbirdCollector',
-    'email_other': 'EmailOtherCollector',
-    'teams': 'TeamsCollector',
-    'slack': 'SlackCollector',
-    'discord': 'DiscordCollector',
-    'signal': 'SignalCollector',
-    'whatsapp': 'WhatsAppCollector',
-    'telegram': 'TelegramCollector',
-    'cloud_onedrive': 'CloudOneDriveCollector',
-    'cloud_google_drive': 'CloudGoogleDriveCollector',
-    'cloud_dropbox': 'CloudDropboxCollector',
-    'cloud_other': 'CloudOtherCollector',
-    'remote_access': 'RemoteAccessCollector',
-    'rdp': 'RDPCollector',
-    'ssh_ftp': 'SSHFTPCollector',
-    'credentials': 'CredentialsCollector',
-    'office': 'OfficeCollector',
-    'antivirus': 'AntivirusCollector',
-    'wer_crashes': 'WERCrashesCollector',
-    'iis_web': 'IISWebCollector',
-    'active_directory': 'ActiveDirectoryCollector',
-    'database_clients': 'DatabaseClientsCollector',
-    'dev_tools': 'DevToolsCollector',
-    'password_managers': 'PasswordManagersCollector',
-    'vpn': 'VPNICollector',
-    'gaming': 'GamingCollector',
-    'printing': 'PrintingCollector',
-    'encryption': 'EncryptionCollector',
-    'boot_uefi': 'BootUEFICollector',
-    'etw_diagnostics': 'ETWDiagnosticsCollector',
-    'windows_apps': 'WindowsAppsCollector',
-    'wsl': 'WSLCollector',
-    'virtualization': 'VirtualizationCollector',
-    'recovery': 'RecoveryCollector',
-    'logs': 'LogsCollector',
-    'memory': 'MemoryCollector',
-    'hashing': 'HashingCollector',
-    'file_listing': 'FileListingCollector',
-    'yara_scanner': 'YaraScannerCollector',
-}
+# NOTE: the old CATEGORY_COLLECTOR_MAP (category -> class-name string) was
+# removed in v1.2.0. Collector dispatch is now handled by auto-discovery in
+# collectors/collector_registry.py — the single source of truth.
 
 # Category shortcuts
 CATEGORY_SHORTCUTS = {

@@ -7,7 +7,6 @@ registry access, NTFS operations, and other common functionality.
 
 from utils.constants import (
     COLLECTION_LEVELS,
-    CATEGORY_COLLECTOR_MAP,
     CATEGORY_SHORTCUTS,
     LEVEL_CATEGORIES,
     WINDOWS_PATHS,
@@ -43,7 +42,6 @@ from utils.constants import (
 
 __all__ = [
     'COLLECTION_LEVELS',
-    'CATEGORY_COLLECTOR_MAP',
     'CATEGORY_SHORTCUTS',
     'LEVEL_CATEGORIES',
     'WINDOWS_PATHS',

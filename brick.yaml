@@ -1,0 +1,18 @@
+# ForensicHarvester — acquisition agent
+name: ForensicHarvester
+kind: collector
+version: "1.2.0"
+repository: forensic-harvester
+status: built
+consumes:
+  content_types: []        # reads live hosts / disks / images, not bus input
+  filenames: []
+produces:
+  schema:
+    - https://citadel.dfir/contracts/bundle_manifest/v1.json
+  artifact_types:
+    - "*"                   # 70 collectors across Windows / Linux / macOS
+dependencies:
+  - sluice                  # hands bundles to Sluice (gRPC / upload token)
+health:
+  command: "forensic-harvester --version"

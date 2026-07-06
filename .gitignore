@@ -1,0 +1,16 @@
+# Generated gRPC stubs (produced by generate_stubs.sh at build time)
+grpc_stubs/
+
+# Build artifacts
+dist/
+build/
+*.spec
+__pycache__/
+*.pyc
+
+# Collection output
+output/
+*.zip
+
+# PyInstaller single-binary outputs
+*.exe

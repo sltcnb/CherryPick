@@ -1,0 +1,36 @@
+[project]
+name = "forensic-harvester"
+version = "1.2.0"
+description = "ForensicHarvester — cross-OS forensic acquisition agent (live / image / dead-box) producing a signed content-addressed artifact bundle"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "ForensicHarvester" }]
+
+# Core runtime. Network (grpcio), crypto (cryptography), S3 (boto3), YARA
+# (yara-python) and pytsk3 are imported lazily so a lean build still runs; they
+# are declared as optional extras below.
+dependencies = [
+    "PyYAML",
+    "jsonschema",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+image = ["pytsk3"]
+zip = ["pyzipper"]
+yara = ["yara-python"]
+remote = ["grpcio", "cryptography", "boto3"]
+full = ["pytsk3", "pyzipper", "yara-python", "grpcio", "cryptography", "boto3"]
+dev = ["pytest", "pytest-cov"]
+
+[project.scripts]
+forensic-harvester = "forensic_harvester:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["forensic_harvester", "crypto", "agent_client", "collector_server",
+              "secure_upload", "fo_uploader", "remote_upload"]
+packages = ["collectors", "utils", "sources"]

@@ -1,6 +1,23 @@
 # ForensicHarvester
 
-A comprehensive Python-based forensic triage tool for collecting forensic artifacts from Windows systems in both live and dead-box (mounted image) modes.
+A comprehensive, cross-OS forensic acquisition agent. It walks a host (live), a
+mounted volume, a pytsk3 disk image (E01/dd/vhd), or a raw device (BitLocker) and
+gathers artifacts into a **signed, content-addressed bundle** — the same contract
+Citadel's Talon produces — while keeping ForensicHarvester's strengths (pytsk3
+imaging, YARA, multithreading) and one-file-per-collector modularity.
+
+## What's new (v1.2.0 — Talon parity)
+
+- **Cross-OS catalog** — 70 collectors: 52 Windows, 11 Linux, 7 macOS.
+- **Content-addressed bundle** — `manifest.json | events.jsonl | blobs/<sha256> | bundle.sha256`, conforming to the vendored `contracts/bundle_manifest.schema.json`; manifest is schema-validated before sealing. `--output-format {zip,bundle,both}`.
+- **Capabilities catalog** — `capabilities.yaml` is the single source of truth for what is collectable (renderable as a UI). Its option `value`s are the `--collect` keys, validated against the collector registry at startup.
+- **Auto-discovery registry** — collectors self-register by class; adding one is a single new file (no more 3-place dispatch tables). Talon category keys (`evtx`, `network_cfg`, …) work as aliases.
+- **Unified source abstraction** (`sources/`) — one collector body runs against live FS, mounted volume, pytsk3 image, or raw device+BitLocker (dislocker→cryptsetup, ntfs-3g).
+- **Dead-box** — `--path <mount>`, `--disk <device> --bitlocker-key <key>`, plus the existing `--image-path`.
+- **IOC sweep** — `--fetch "mimikatz*" --fetch "re:\.(ps1|hta)$" --fetch-root C:\Users`.
+- **Remote delivery** — gRPC/mTLS agent, AES-256-GCM chunked resumable upload, S3/MinIO presigned + Citadel case API (`--api-url/--case-id/--api-token`, `--presigned-url`). All optional/lazy-imported.
+- **Finished collectors** — `hashing` (MD5/SHA256 inventory), `file_listing` (recursive MACB), `yara` (rule scan → match JSONL) are implemented.
+- **Tests** — `pytest tests/` (chunker, secure-upload, registry consistency, source+bundle schema, stub collectors).
 
 ## Features
 

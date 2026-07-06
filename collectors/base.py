@@ -118,12 +118,30 @@ class BaseCollector(ABC):
         self.output_root = output_root
         self.level = level
         self.manifest = manifest
-        self.image = image  # DiskImage object for raw image access
+        self.image = image  # DiskImage object for raw image access (legacy accessor)
         self.result = CollectionResult(category=self.category)
-        
+
+        # Unified source abstraction. A caller may inject a prepared Source via
+        # config['_source']; otherwise one is derived from image/source_root so
+        # the 51 existing collectors work unchanged.
+        self.source = config.get('_source') if isinstance(config, dict) else None
+        if self.source is None:
+            from sources import build_source
+            self.source = build_source(source_root, image=image)
+
         # Category-specific output directory
         self.category_output = self._get_category_output_dir()
     
+    @classmethod
+    def supported_categories(cls) -> set:
+        """Category keys this collector class can produce.
+
+        Defaults to ``{cls.category}``; collectors that expose more than one
+        key may override. Used by the registry to build the key→class map and
+        validate against ``capabilities.yaml``.
+        """
+        return {cls.category}
+
     def _get_category_output_dir(self) -> str:
         """
         Get the output directory for this collector's category.
@@ -199,9 +217,7 @@ class BaseCollector(ABC):
         Returns:
             Expanded absolute path.
         """
-        if os.path.isabs(path):
-            return extend_path(path)
-        return extend_path(os.path.join(self.source_root, path))
+        return self.source.expand(path)
     
     def _ensure_output_dir(self, subpath: str = '') -> str:
         """
@@ -322,10 +338,17 @@ class BaseCollector(ABC):
                 except Exception as e:
                     self.result.add_warning(f"Failed to hash {dest_filename}: {e}")
             
+            # Record the path relative to output_root so downstream consumers
+            # (bundle writer, ZIP) can locate the staged blob deterministically.
+            try:
+                rel_dest = os.path.relpath(dest_path, self.output_root)
+            except ValueError:
+                rel_dest = os.path.join(dest_subpath, dest_filename)
+
             # Add to manifest
             self.manifest.add_entry(
                 source_path=source_path,
-                dest_path=os.path.join(dest_subpath, dest_filename),
+                dest_path=rel_dest,
                 status='success',
                 category=self.category,
                 md5=md5,
@@ -449,60 +472,72 @@ class BaseCollector(ABC):
 
     def _path_exists(self, path: str) -> bool:
         """Check if path exists in source."""
-        if self.image and hasattr(self.image, 'file_exists'):
-            return self.image.file_exists(path)
-        return os.path.exists(self._expand_path(path))
-    
+        return self.source.exists(path)
+
     def _list_dir(self, path: str) -> List[str]:
         """List directory contents."""
-        if self.image and hasattr(self.image, 'list_files'):
-            entries = self.image.list_files(path)
-            return [e['name'] for e in entries]
-        
-        expanded = self._expand_path(path)
-        if os.path.isdir(expanded):
-            return os.listdir(expanded)
-        return []
-    
+        return self.source.list_dir(path)
+
     def _is_file(self, path: str) -> bool:
         """Check if path is a file."""
-        if self.image and hasattr(self.image, 'list_files'):
-            # For image mode: check if it exists and listing it returns empty (files can't be listed)
-            # or check parent dir to see if entry type is file
-            if not self.image.file_exists(path):
-                return False
-            # Try to list the path - if it returns entries, it's a directory
-            entries = self.image.list_files(path)
-            # If listing returns entries (beyond . and ..), it's a directory
-            # Filter out . and .. entries
-            real_entries = [e for e in entries if e['name'] not in ['.', '..']]
-            return len(real_entries) == 0
-        expanded = self._expand_path(path)
-        return os.path.isfile(expanded) if os.path.exists(expanded) else False
-    
+        return self.source.is_file(path)
+
     def _get_file_size(self, path: str) -> int:
         """Get file size."""
-        if self.image and hasattr(self.image, 'get_file_size'):
-            return self.image.get_file_size(path)
-        return os.path.getsize(self._expand_path(path))
-    
+        return self.source.file_size(path)
+
     def _extract_file(self, image_path: str, output_path: str) -> Tuple[bool, Optional[str]]:
         """Extract file from source to destination."""
         try:
-            if self.image and hasattr(self.image, 'extract_file'):
-                # Extract from disk image
-                success = self.image.extract_file(image_path, output_path)
-                if success:
-                    return True, None
-                return False, "Failed to extract from image"
-            else:
-                # Copy from regular filesystem
-                expanded_src = self._expand_path(image_path)
-                if not os.path.exists(expanded_src):
-                    return False, "Source file not found"
-                return copy_file_with_metadata(expanded_src, output_path)
+            return self.source.extract(image_path, output_path)
         except Exception as e:
             return False, str(e)
+
+    def _collect_relpaths(self, paths, dest_subpath: str = '') -> int:
+        """Collect a list of source-relative file paths into ``dest_subpath``.
+
+        Directory entries are expanded one level. Used by the declarative
+        cross-OS collectors. Returns the number of files collected.
+        """
+        n = 0
+        for rel in paths:
+            rel = rel.lstrip('/')
+            if not self._path_exists(rel):
+                continue
+            if self._is_file(rel):
+                name = os.path.basename(rel.rstrip('/')) or rel.replace('/', '_')
+                if self._collect_file(rel, dest_subpath, name):
+                    n += 1
+            else:
+                for entry in self._list_dir(rel):
+                    if entry in ('.', '..'):
+                        continue
+                    child = f"{rel}/{entry}"
+                    if self._is_file(child) and self._collect_file(child, dest_subpath, entry):
+                        n += 1
+        return n
+
+    def _register_derived_output(self, path: str) -> bool:
+        """Register a collector-produced output file (inventory, scan results, …)
+        with the manifest so it is hashed and included in the bundle/ZIP.
+
+        Unlike ``_collect_file`` (which copies a source artifact), this attributes
+        an already-written local file under ``output_root`` to this category.
+        """
+        try:
+            size = os.path.getsize(path)
+            hr = hash_file_streaming(path)
+            rel = os.path.relpath(path, self.output_root)
+            self.manifest.add_entry(
+                source_path='<derived>', dest_path=rel, status='success',
+                category=self.category, md5=hr.md5, sha256=hr.sha256, size_bytes=size,
+            )
+            self.result.files_collected += 1
+            self.result.total_bytes += size
+            return True
+        except Exception as e:
+            self.result.add_error(f"could not register derived output {path}: {e}")
+            return False
 
     def _collect_dir_contents(
         self,

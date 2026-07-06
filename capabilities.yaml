@@ -1,0 +1,144 @@
+tool: forensic-harvester
+kind: collector
+stage: Collect
+icon: harvester
+role: >-
+  Acquire a host's forensic artifacts — live, mounted volume, pytsk3 image, or raw
+  device (BitLocker) — into a signed, hash-verified content-addressed bundle.
+surfaces:
+  - route: /collector
+version: 1.2.0
+description: >-
+  ForensicHarvester is the acquisition stage. It owns the per-OS artifact catalog
+  below; a collection UI can be rendered directly from this file. Each option
+  `value` is exactly the category key consumed by `--collect` and dispatched to a
+  registered collector of the same key (see collectors/collector_registry.py).
+
+capabilities:
+  # ── Windows ───────────────────────────────────────────────────────────────
+  - id: collect_windows
+    label: Windows collection
+    description: Windows host / image / dead-box artifact acquisition.
+    platforms: [windows]
+    output: bundle
+    group_order:
+      - Core System
+      - Execution & Persistence
+      - Network & Devices
+      - Security & Credentials
+      - Browsers
+      - Email
+      - Messaging
+      - Cloud Sync
+      - Remote Access
+      - Applications & User Data
+      - Infrastructure
+      - Live Triage
+      - Analysis
+      - Heavy / Opt-in
+    inputs:
+      - name: categories
+        type: multiselect
+        options:
+          - {value: registry,           group: Core System, label: Registry hives, desc: SYSTEM/SOFTWARE/SAM/SECURITY + per-user NTUSER/UsrClass}
+          - {value: eventlogs,          group: Core System, label: Event logs (EVTX), desc: winevt/Logs channels}
+          - {value: filesystem,         group: Core System, label: Filesystem metadata, desc: $MFT/$LogFile/$Boot, ADS inventory}
+          - {value: boot_uefi,          group: Core System, label: Boot / UEFI, desc: BCD, bootstat, Windows/Boot}
+          - {value: logs,               group: Core System, label: Windows logs, desc: Windows/Logs, Panther, CBS, CCM}
+          - {value: execution,          group: Execution & Persistence, label: Execution, desc: Prefetch, SRUM, Amcache, PCA}
+          - {value: persistence,        group: Execution & Persistence, label: Persistence, desc: Scheduled Tasks, WMI repository}
+          - {value: etw_diagnostics,    group: Execution & Persistence, label: ETW / DiagTrack, desc: ETW logs, DiagTrack}
+          - {value: network,            group: Network & Devices, label: Network config, desc: hosts/lmhosts, netlogon, NetSetup}
+          - {value: usb_devices,        group: Network & Devices, label: USB devices, desc: setupapi logs}
+          - {value: printing,           group: Network & Devices, label: Printing, desc: spool, printer roaming}
+          - {value: credentials,        group: Security & Credentials, label: Credentials, desc: SAM/SECURITY/SYSTEM, DPAPI}
+          - {value: antivirus,          group: Security & Credentials, label: Antivirus / EDR, desc: Defender data + logs}
+          - {value: encryption,         group: Security & Credentials, label: Encryption, desc: BitLocker data, startup scripts}
+          - {value: password_managers,  group: Security & Credentials, label: Password managers, desc: KeePass/1Password/Bitwarden}
+          - {value: browser_chrome,     group: Browsers, label: Chrome, desc: History/Cookies/Login Data}
+          - {value: browser_edge,       group: Browsers, label: Edge, desc: History/Cookies/Login Data}
+          - {value: browser_firefox,    group: Browsers, label: Firefox, desc: places.sqlite/logins.json}
+          - {value: browser_ie,         group: Browsers, label: Internet Explorer, desc: WebCacheV01.dat}
+          - {value: email_outlook,      group: Email, label: Outlook, desc: PST/OST/NK2}
+          - {value: email_thunderbird,  group: Email, label: Thunderbird, desc: profiles}
+          - {value: email_other,        group: Email, label: Other mail, desc: Unistore mail db}
+          - {value: messaging_teams,    group: Messaging, label: Teams, desc: cache/logs}
+          - {value: messaging_slack,    group: Messaging, label: Slack, desc: cache/storage}
+          - {value: messaging_discord,  group: Messaging, label: Discord, desc: cache/storage}
+          - {value: messaging_signal,   group: Messaging, label: Signal, desc: storage}
+          - {value: messaging_whatsapp, group: Messaging, label: WhatsApp, desc: storage}
+          - {value: messaging_telegram, group: Messaging, label: Telegram, desc: storage}
+          - {value: cloud_onedrive,     group: Cloud Sync, label: OneDrive, desc: logs/settings}
+          - {value: cloud_google_drive, group: Cloud Sync, label: Google Drive, desc: DriveFS}
+          - {value: cloud_dropbox,      group: Cloud Sync, label: Dropbox, desc: db/settings}
+          - {value: cloud_other,        group: Cloud Sync, label: Other cloud, desc: Box/iCloud/Mega}
+          - {value: remote_access,      group: Remote Access, label: Remote access, desc: AnyDesk/TeamViewer}
+          - {value: rdp,                group: Remote Access, label: RDP, desc: .rdp + mstsc cache}
+          - {value: ssh_ftp,            group: Remote Access, label: SSH / FTP, desc: .ssh keys, PuTTY/WinSCP/FileZilla}
+          - {value: office,             group: Applications & User Data, label: Office, desc: Office roaming, OneNote}
+          - {value: dev_tools,          group: Applications & User Data, label: Dev tools, desc: git/VSCode/.aws/.azure}
+          - {value: database_clients,   group: Applications & User Data, label: Database clients, desc: SSMS/DBeaver/pgadmin}
+          - {value: gaming,             group: Applications & User Data, label: Gaming, desc: Steam/Epic/Battle.net}
+          - {value: vpn,                group: Applications & User Data, label: VPN, desc: OpenVPN/WireGuard/AnyConnect}
+          - {value: windows_apps,       group: Applications & User Data, label: Windows apps, desc: StickyNotes/Cortana/CDP}
+          - {value: iis_web,            group: Infrastructure, label: IIS / web, desc: LogFiles, applicationHost.config}
+          - {value: active_directory,   group: Infrastructure, label: Active Directory, desc: ntds.dit, SYSVOL, NETLOGON}
+          - {value: virtualization,     group: Infrastructure, label: Virtualization, desc: HyperV, docker, vhd/vmdk}
+          - {value: wsl,                group: Infrastructure, label: WSL, desc: wsl.conf, .wslconfig, appx}
+          - {value: wer_crashes,        group: Live Triage, label: WER / crashes, desc: WER, CrashDumps, minidumps}
+          - {value: recovery,           group: Live Triage, label: Recovery, desc: Windows.old, ~BT/~WS, VSS}
+          - {value: hashing,            group: Analysis, label: Hash inventory, desc: MD5/SHA256 inventory (no copy)}
+          - {value: file_listing,       group: Analysis, label: File listing, desc: recursive MACB listing}
+          - {value: yara,               group: Analysis, label: YARA scan, desc: scan against rules, match JSONL}
+          - {value: file_search,        group: Analysis, label: IOC file search, desc: name/glob/regex sweep}
+          - {value: memory,             group: Heavy / Opt-in, label: Memory files, desc: pagefile/hiberfil/swapfile}
+      - {name: mount_path, type: text, label: Mounted volume path, desc: Dead-box mount root}
+      - {name: output, type: enum, options: [citadel, s3, local], default: local}
+      - {name: hash_files, type: bool, default: true}
+      - {name: max_files_per_category, type: int, default: 0}
+
+  # ── Linux (populated in Phase 7) ────────────────────────────────────────────
+  - id: collect_linux
+    label: Linux collection
+    description: Linux host / image / dead-box artifact acquisition.
+    platforms: [linux]
+    output: bundle
+    group_order: [Core System, Security & Defense, Network, Applications & User Data, Live Triage]
+    inputs:
+      - name: categories
+        type: multiselect
+        options:
+          - {value: linux_logs,           group: Core System, label: System logs, desc: /var/log auth/syslog/audit/wtmp}
+          - {value: linux_config,         group: Core System, label: System config, desc: passwd/shadow/sudoers/ssh/pam}
+          - {value: linux_shell_history,  group: Core System, label: Shell history, desc: bash/zsh/python history}
+          - {value: linux_cron,           group: Security & Defense, label: Cron / timers, desc: cron.*, crontabs, systemd timers}
+          - {value: linux_persistence,    group: Security & Defense, label: Persistence, desc: systemd units, rc.local, autostart}
+          - {value: linux_audit,          group: Security & Defense, label: Audit, desc: auditd config + logs}
+          - {value: linux_ssh,            group: Network, label: SSH artifacts, desc: authorized_keys/known_hosts/config}
+          - {value: linux_network,        group: Network, label: Network config, desc: interfaces/netplan/iptables}
+          - {value: linux_packages,       group: Applications & User Data, label: Packages, desc: dpkg/rpm/apt/yum}
+          - {value: linux_containers,     group: Applications & User Data, label: Containers, desc: docker/containerd/kubelet}
+          - {value: linux_user_artifacts, group: Applications & User Data, label: User artifacts, desc: rc files, viminfo, gitconfig}
+      - {name: mount_path, type: text, label: Mounted volume path, desc: Dead-box mount root}
+      - {name: output, type: enum, options: [citadel, s3, local], default: local}
+
+  # ── macOS (populated in Phase 7) ────────────────────────────────────────────
+  - id: collect_macos
+    label: macOS collection
+    description: macOS host / image artifact acquisition.
+    platforms: [macos]
+    output: bundle
+    group_order: [Core System, Security & Defense, Browsers, Live Triage]
+    inputs:
+      - name: categories
+        type: multiselect
+        options:
+          - {value: macos_logs,          group: Core System, label: System logs, desc: system.log/install.log/wifi.log}
+          - {value: macos_config,        group: Core System, label: System config, desc: passwd/hosts/sudoers/SystemVersion}
+          - {value: macos_shell_history, group: Core System, label: Shell history, desc: bash/zsh/python history}
+          - {value: macos_launch_agents, group: Security & Defense, label: Launch agents/daemons, desc: Library LaunchAgents/Daemons}
+          - {value: macos_plist,         group: Security & Defense, label: Plist preferences, desc: loginwindow, SystemConfiguration}
+          - {value: macos_triage,        group: Security & Defense, label: Triage, desc: TCC.db, recent items, dslocal users}
+          - {value: macos_browser,       group: Browsers, label: Browsers, desc: Safari/Chrome/Firefox}
+      - {name: mount_path, type: text, label: Mounted volume path, desc: Dead-box mount root}
+      - {name: output, type: enum, options: [citadel, s3, local], default: local}
