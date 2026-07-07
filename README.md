@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/banner.svg" alt="Triager" width="100%"></p>
+
 # triager
 
 A comprehensive, cross-OS forensic acquisition agent. It walks a host (live), a
