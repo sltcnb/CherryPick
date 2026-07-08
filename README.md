@@ -1,10 +1,3 @@
-<p align="center"><img src="docs/banner.png" alt="Triager" width="100%"></p>
-
-
-## Demo
-
-<p align="center"><img src="docs/demo.gif" alt="triager demo" width="100%"></p>
-
 # triager
 
 A comprehensive, cross-OS forensic acquisition agent. It walks a host (live), a
@@ -12,6 +5,10 @@ mounted volume, a pytsk3 disk image (E01/dd/vhd), or a raw device (BitLocker) an
 gathers artifacts into a **signed, content-addressed bundle** — the same contract
 Citadel's Talon produces — while keeping Triager's strengths (pytsk3
 imaging, YARA, multithreading) and one-file-per-collector modularity.
+
+## Demo
+
+<p align="center"><img src="docs/demo.gif" alt="triager demo" width="100%"></p>
 
 ## What's new (v1.2.0 — Talon parity)
 
