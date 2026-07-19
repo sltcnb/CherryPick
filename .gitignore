@@ -14,3 +14,19 @@ output/
 
 # PyInstaller single-binary outputs
 *.exe
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+
+# Editor/OS cruft
+.DS_Store
+.vscode/
+.idea/
+
