@@ -36,14 +36,26 @@ class FileMetadata:
 def extend_path(path: str) -> str:
     """
     Extend a path to support long filenames on Windows.
-    
+
+    The ``\\\\?\\`` long-path prefix is a Windows-only convention: it is
+    not a valid path component on POSIX systems, so unconditionally
+    prepending it turns an otherwise-valid macOS/Linux path into one that
+    fails with ``OSError`` on every subsequent ``open``/``stat`` call —
+    silently dropping evidence during collection instead of copying it.
+    There is also no 260-character ``MAX_PATH`` limitation to work around
+    off Windows, so this function is a no-op on any non-Windows platform.
+
     Args:
         path: The file path to extend.
-        
+
     Returns:
-        The path with backslash prefix if needed.
+        On Windows: the absolute path, prefixed with ``\\\\?\\`` if it
+        exceeds ``MAX_PATH``. On every other platform: *path*, unchanged.
     """
     if not path:
+        return path
+
+    if os.name != 'nt':
         return path
 
     # Convert to absolute path
